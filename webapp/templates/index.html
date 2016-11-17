@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href='/static/style.css' />
+    <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#high-status").click(function() {
+                $.ajax({
+                    url: "/led/" + $("input[name=pin_number]").val(),
+                    method: "PUT",
+                    data: {
+                      value: "high"
+                    }
+                }).done(function(data, textStatus, jqXHR) {
+                    $("#status").html(data.status)
+                });
+            });
+            $("#low-status").click(function() {
+                $.ajax({
+                    url: "/led/" + $("input[name=pin_number]").val(),
+                    method: "PUT",
+                    data: {
+                      value: "low"
+                    }
+                }).done(function(data, textStatus, jqXHR) {
+                    $("#status").html(data.status)
+                });
+            });
+            $("#update-status").click(function() {
+                $.ajax({
+                    url: "/led/" + $("input[name=pin_number]").val(),
+                }).done(function(data, textStatus, jqXHR) {
+                    $("#status").html(data.status)
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>LED control panel</h1>
+    <input type="number" name="pin_number" value="18">
+    <button type="button" id="high-status">High</button>
+    <button type="button" id="low-status">Low</button>
+    <button type="button" id="update-status">Update status</button>
+
+    <h3 id="status"></h3>
+</body>
+
+
+</html>
